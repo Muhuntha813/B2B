@@ -1,0 +1,61 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="extruderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#27AE60;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#229954;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="barrelGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#BDC3C7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#95A5A6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="#FAFAFA"/>
+  
+  <!-- Machine Base -->
+  <rect x="20" y="130" width="260" height="50" fill="url(#extruderGradient)" rx="8"/>
+  
+  <!-- Barrel -->
+  <rect x="40" y="90" width="180" height="30" fill="url(#barrelGradient)" rx="15"/>
+  
+  <!-- Heating Bands -->
+  <rect x="50" y="85" width="15" height="40" fill="#E74C3C" rx="3"/>
+  <rect x="80" y="85" width="15" height="40" fill="#E74C3C" rx="3"/>
+  <rect x="110" y="85" width="15" height="40" fill="#E74C3C" rx="3"/>
+  <rect x="140" y="85" width="15" height="40" fill="#E74C3C" rx="3"/>
+  <rect x="170" y="85" width="15" height="40" fill="#E74C3C" rx="3"/>
+  <rect x="200" y="85" width="15" height="40" fill="#E74C3C" rx="3"/>
+  
+  <!-- Twin Screws (visible through cutaway) -->
+  <ellipse cx="105" cy="100" rx="3" ry="8" fill="#34495E"/>
+  <ellipse cx="115" cy="100" rx="3" ry="8" fill="#34495E"/>
+  
+  <!-- Screw Flights -->
+  <path d="M 45 105 L 215 95" stroke="#2C3E50" stroke-width="2" fill="none"/>
+  <path d="M 45 95 L 215 105" stroke="#2C3E50" stroke-width="2" fill="none"/>
+  
+  <!-- Die Head -->
+  <rect x="220" y="95" width="30" height="20" fill="#7F8C8D" rx="5"/>
+  <rect x="250" y="100" width="10" height="10" fill="#34495E" rx="2"/>
+  
+  <!-- Motor -->
+  <rect x="30" y="70" width="40" height="40" fill="#2C3E50" rx="5"/>
+  <circle cx="50" cy="90" r="15" fill="#34495E"/>
+  
+  <!-- Hopper -->
+  <polygon points="80,70 120,70 110,50 90,50" fill="#95A5A6"/>
+  <rect x="85" y="45" width="20" height="10" fill="#7F8C8D" rx="2"/>
+  
+  <!-- Control Panel -->
+  <rect x="160" y="50" width="60" height="30" fill="#2C3E50" rx="5"/>
+  <rect x="165" y="55" width="50" height="20" fill="#3498DB" rx="3"/>
+  
+  <!-- Temperature Display -->
+  <rect x="170" y="60" width="15" height="8" fill="#E74C3C"/>
+  <text x="177" y="66" text-anchor="middle" font-family="Arial, sans-serif" font-size="6" fill="white">250°C</text>
+  
+  <!-- Labels -->
+  <text x="150" y="25" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#2C3E50">Twin Screw Extruder</text>
+  <text x="150" y="195" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#7F8C8D">Co-rotating - High Output</text>
+</svg>

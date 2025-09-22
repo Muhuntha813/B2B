@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mould Designer & Maker Directory - B2B Plastics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .mould-hero {
+            background: linear-gradient(135deg, #4CAF50 0%, #45A049 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .mould-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .mould-hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .filters-section {
+            background: #f8fafc;
+            padding: 30px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .filter-container {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .filter-label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+        
+        .filter-select {
+            padding: 10px 15px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            background: white;
+            font-size: 14px;
+            min-width: 150px;
+        }
+        
+        .directory-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 30px;
+            padding: 40px 0;
+        }
+        
+        .filters-sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .filters-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #2d3748;
+        }
+        
+        .filter-section {
+            margin-bottom: 25px;
+        }
+        
+        .filter-section h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #4a5568;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .filter-option input[type="checkbox"] {
+            accent-color: #4CAF50;
+        }
+        
+        .filter-option label {
+            font-size: 14px;
+            color: #4a5568;
+            cursor: pointer;
+        }
+        
+        .companies-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .company-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .company-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .company-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .company-info h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+        
+        .company-location {
+            color: #718096;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .company-rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .stars {
+            color: #FFC107;
+        }
+        
+        .rating-text {
+            font-size: 14px;
+            color: #4a5568;
+        }
+        
+        .company-description {
+            color: #4a5568;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .company-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .spec-tag {
+            background: #E8F5E8;
+            color: #2E7D32;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .company-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn-view-profile {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-view-profile:hover {
+            background: #45A049;
+        }
+        
+        .btn-contact {
+            background: white;
+            color: #4CAF50;
+            border: 2px solid #4CAF50;
+            padding: 8px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn-contact:hover {
+            background: #4CAF50;
+            color: white;
+        }
+        
+        .cta-section {
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+        
+        .cta-content h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2E7D32;
+            margin-bottom: 15px;
+        }
+        
+        .cta-content p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .cta-feature {
+            text-align: center;
+        }
+        
+        .cta-icon {
+            width: 60px;
+            height: 60px;
+            background: #4CAF50;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            color: white;
+            font-size: 24px;
+        }
+        
+        .cta-feature h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2E7D32;
+            margin-bottom: 8px;
+        }
+        
+        .cta-feature p {
+            font-size: 14px;
+            color: #4a5568;
+            margin: 0;
+        }
+        
+        .btn-cta {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-cta:hover {
+            background: #45A049;
+        }
+        
+        @media (max-width: 768px) {
+            .directory-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .filters-sidebar {
+                position: static;
+            }
+            
+            .company-actions {
+                flex-direction: column;
+            }
+            
+            .btn-view-profile,
+            .btn-contact {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-cube"></i>
+                <span>B2B Plastics</span>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="#" class="nav-link">Manpower</a>
+                <a href="machinery.html" class="nav-link">Machineries</a>
+                <a href="materials.html" class="nav-link">Material</a>
+                <a href="mould-design.html" class="nav-link active">Mould Design and Makers</a>
+                <a href="#" class="nav-link">Technical Directory</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn btn-primary">Post Requirement</button>
+                <button class="btn btn-secondary">Login</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="mould-hero">
+        <div class="container">
+            <h1>Mould Designer & Maker Directory</h1>
+            <p>Find the perfect partner for your plastic mould design and manufacturing needs. Browse our directory of skilled professionals and companies.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="container">
+        <div class="directory-grid">
+            <!-- Filters Sidebar -->
+            <div class="filters-sidebar">
+                <h3 class="filters-title">Filter by</h3>
+                
+                <div class="filter-section">
+                    <h4>Location</h4>
+                    <select class="filter-select">
+                        <option>All India</option>
+                        <option>Mumbai, Maharashtra</option>
+                        <option>Pune, Maharashtra</option>
+                        <option>Bengaluru, Karnataka</option>
+                        <option>Chennai, Tamil Nadu</option>
+                        <option>Delhi NCR</option>
+                        <option>Ahmedabad, Gujarat</option>
+                    </select>
+                </div>
+                
+                <div class="filter-section">
+                    <h4>Specialization</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="injection" name="specialization" value="injection">
+                            <label for="injection">Injection Molding</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="blow" name="specialization" value="blow">
+                            <label for="blow">Blow Molding</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="automotive" name="specialization" value="automotive">
+                            <label for="automotive">Automotive</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="medical" name="specialization" value="medical">
+                            <label for="medical">Medical</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="packaging" name="specialization" value="packaging">
+                            <label for="packaging">Packaging</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="filter-section">
+                    <h4>Rating</h4>
+                    <div class="filter-options">
+                        <div class="filter-option">
+                            <input type="checkbox" id="4stars" name="rating" value="4+">
+                            <label for="4stars">4 Stars & Up</label>
+                        </div>
+                        <div class="filter-option">
+                            <input type="checkbox" id="3stars" name="rating" value="3+">
+                            <label for="3stars">3 Stars & Up</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Companies List -->
+            <div class="companies-list">
+                <!-- Company 1 -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-info">
+                            <h3>Precision Moulding Solutions</h3>
+                            <div class="company-location">Mumbai, Maharashtra</div>
+                            <div class="company-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.8 (32 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="company-description">
+                        Expertise in precision injection moulding for automotive and medical industries. We deliver high-quality moulds with short lead times.
+                    </p>
+                    <div class="company-specs">
+                        <span class="spec-tag">Injection Molding</span>
+                        <span class="spec-tag">Automotive</span>
+                        <span class="spec-tag">Medical</span>
+                        <span class="spec-tag">ISO 9001</span>
+                    </div>
+                    <div class="company-actions">
+                        <a href="#" class="btn-view-profile">View Profile</a>
+                        <a href="#" class="btn-contact">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Company 2 -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-info">
+                            <h3>Advanced Mould Manufacturing</h3>
+                            <div class="company-location">Pune, Maharashtra</div>
+                            <div class="company-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.5 (25 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="company-description">
+                        State-of-the-art facilities for complex and multi-cavity moulds. Specializing in consumer electronics and packaging.
+                    </p>
+                    <div class="company-specs">
+                        <span class="spec-tag">Multi-cavity</span>
+                        <span class="spec-tag">Electronics</span>
+                        <span class="spec-tag">Packaging</span>
+                        <span class="spec-tag">CAD/CAM</span>
+                    </div>
+                    <div class="company-actions">
+                        <a href="#" class="btn-view-profile">View Profile</a>
+                        <a href="#" class="btn-contact">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Company 3 -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-info">
+                            <h3>Custom Mould Design Services</h3>
+                            <div class="company-location">Bengaluru, Karnataka</div>
+                            <div class="company-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.9 (41 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="company-description">
+                        From concept to reality. We offer tailored mould designs to meet specific product requirements, including 3D modeling and prototyping.
+                    </p>
+                    <div class="company-specs">
+                        <span class="spec-tag">Custom Design</span>
+                        <span class="spec-tag">3D Modeling</span>
+                        <span class="spec-tag">Prototyping</span>
+                        <span class="spec-tag">Rapid Tooling</span>
+                    </div>
+                    <div class="company-actions">
+                        <a href="#" class="btn-view-profile">View Profile</a>
+                        <a href="#" class="btn-contact">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Company 4 -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-info">
+                            <h3>Industrial Tooling Solutions</h3>
+                            <div class="company-location">Chennai, Tamil Nadu</div>
+                            <div class="company-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-text">4.2 (18 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="company-description">
+                        Comprehensive tooling solutions for large-scale manufacturing. Expertise in blow molding and thermoforming applications.
+                    </p>
+                    <div class="company-specs">
+                        <span class="spec-tag">Blow Molding</span>
+                        <span class="spec-tag">Thermoforming</span>
+                        <span class="spec-tag">Large Scale</span>
+                        <span class="spec-tag">Industrial</span>
+                    </div>
+                    <div class="company-actions">
+                        <a href="#" class="btn-view-profile">View Profile</a>
+                        <a href="#" class="btn-contact">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Company 5 -->
+                <div class="company-card">
+                    <div class="company-header">
+                        <div class="company-info">
+                            <h3>Precision Engineering Works</h3>
+                            <div class="company-location">Ahmedabad, Gujarat</div>
+                            <div class="company-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="rating-text">4.6 (29 reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="company-description">
+                        High-precision moulds for critical applications. Specializing in tight tolerance requirements and complex geometries.
+                    </p>
+                    <div class="company-specs">
+                        <span class="spec-tag">High Precision</span>
+                        <span class="spec-tag">Tight Tolerance</span>
+                        <span class="spec-tag">Complex Geometry</span>
+                        <span class="spec-tag">Quality Certified</span>
+                    </div>
+                    <div class="company-actions">
+                        <a href="#" class="btn-view-profile">View Profile</a>
+                        <a href="#" class="btn-contact">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Are you a Mould Designer or Maker?</h2>
+                <p>Join India's largest online plastics marketplace and connect with businesses looking for your expertise.</p>
+                
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <div class="cta-icon">
+                            <i class="fas fa-edit"></i>
+                        </div>
+                        <h4>Create Your Profile</h4>
+                        <p>Showcase your skills, experience, and portfolio to a targeted audience.</p>
+                    </div>
+                    
+                    <div class="cta-feature">
+                        <div class="cta-icon">
+                            <i class="fas fa-filter"></i>
+                        </div>
+                        <h4>Receive Inquiries</h4>
+                        <p>Get direct inquiries from businesses actively looking for mould design and making services.</p>
+                    </div>
+                    
+                    <div class="cta-feature">
+                        <div class="cta-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h4>Grow Your Business</h4>
+                        <p>Expand your reach and take on new projects to grow your business.</p>
+                    </div>
+                </div>
+                
+                <a href="#" class="btn-cta">List Your Service Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-cube"></i>
+                        <span>B2B Plastics</span>
+                    </div>
+                    <p>India's first online plastics marketplace connecting manufacturers, suppliers, and service providers.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#">Manpower</a></li>
+                        <li><a href="machinery.html">Machineries</a></li>
+                        <li><a href="materials.html">Materials</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="mould-design.html">Mould Design</a></li>
+                        <li><a href="#">Technical Directory</a></li>
+                        <li><a href="#">Quality Testing</a></li>
+                        <li><a href="#">Logistics</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@b2bplastics.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Mumbai, India</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 B2B Plastics. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

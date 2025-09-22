@@ -1,0 +1,81 @@
+<svg width="300" height="200" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e9ecef;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bluePelletGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#1d4ed8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="containerGradient" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#dee2e6;stop-opacity:0.9" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#bgGradient)"/>
+  
+  <!-- Extrusion equipment silhouette (background) -->
+  <g opacity="0.2" fill="#6c757d">
+    <rect x="50" y="70" width="200" height="15" rx="7"/>
+    <rect x="60" y="60" width="10" height="35"/>
+    <rect x="80" y="60" width="10" height="35"/>
+    <rect x="100" y="60" width="10" height="35"/>
+    <rect x="120" y="60" width="10" height="35"/>
+    <rect x="140" y="60" width="10" height="35"/>
+    <rect x="160" y="60" width="10" height="35"/>
+    <rect x="180" y="60" width="10" height="35"/>
+    <rect x="200" y="60" width="10" height="35"/>
+    <rect x="220" y="60" width="10" height="35"/>
+    <rect x="240" y="60" width="10" height="35"/>
+  </g>
+  
+  <!-- Container/Bowl -->
+  <ellipse cx="150" cy="160" rx="120" ry="30" fill="url(#containerGradient)"/>
+  <ellipse cx="150" cy="155" rx="120" ry="30" fill="#f8f9fa" opacity="0.9"/>
+  
+  <!-- HDPE Blue Pellets/Granules -->
+  <g opacity="0.95">
+    <!-- Row 1 -->
+    <ellipse cx="75" cy="140" rx="7" ry="10" fill="url(#bluePelletGradient)" transform="rotate(12 75 140)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="95" cy="135" rx="8" ry="11" fill="url(#bluePelletGradient)" transform="rotate(-8 95 135)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="115" cy="138" rx="7" ry="9" fill="url(#bluePelletGradient)" transform="rotate(20 115 138)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="135" cy="142" rx="8" ry="10" fill="url(#bluePelletGradient)" transform="rotate(-3 135 142)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="155" cy="136" rx="7" ry="11" fill="url(#bluePelletGradient)" transform="rotate(15 155 136)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="175" cy="140" rx="8" ry="9" fill="url(#bluePelletGradient)" transform="rotate(-12 175 140)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="195" cy="138" rx="7" ry="10" fill="url(#bluePelletGradient)" transform="rotate(8 195 138)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="215" cy="142" rx="8" ry="11" fill="url(#bluePelletGradient)" transform="rotate(-18 215 142)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="235" cy="139" rx="7" ry="9" fill="url(#bluePelletGradient)" transform="rotate(22 235 139)" stroke="#2563eb" stroke-width="0.5"/>
+    
+    <!-- Row 2 -->
+    <ellipse cx="85" cy="155" rx="8" ry="9" fill="url(#bluePelletGradient)" transform="rotate(-6 85 155)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="105" cy="152" rx="7" ry="10" fill="url(#bluePelletGradient)" transform="rotate(16 105 152)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="125" cy="158" rx="8" ry="11" fill="url(#bluePelletGradient)" transform="rotate(-10 125 158)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="145" cy="154" rx="7" ry="9" fill="url(#bluePelletGradient)" transform="rotate(18 145 154)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="165" cy="156" rx="8" ry="10" fill="url(#bluePelletGradient)" transform="rotate(-5 165 156)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="185" cy="153" rx="7" ry="11" fill="url(#bluePelletGradient)" transform="rotate(14 185 153)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="205" cy="157" rx="8" ry="9" fill="url(#bluePelletGradient)" transform="rotate(-16 205 157)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="225" cy="154" rx="7" ry="10" fill="url(#bluePelletGradient)" transform="rotate(11 225 154)" stroke="#2563eb" stroke-width="0.5"/>
+    
+    <!-- Row 3 -->
+    <ellipse cx="95" cy="170" rx="7" ry="10" fill="url(#bluePelletGradient)" transform="rotate(9 95 170)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="115" cy="168" rx="8" ry="9" fill="url(#bluePelletGradient)" transform="rotate(-13 115 168)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="135" cy="172" rx="7" ry="11" fill="url(#bluePelletGradient)" transform="rotate(6 135 172)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="155" cy="169" rx="8" ry="10" fill="url(#bluePelletGradient)" transform="rotate(-9 155 169)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="175" cy="171" rx="7" ry="9" fill="url(#bluePelletGradient)" transform="rotate(17 175 171)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="195" cy="168" rx="8" ry="11" fill="url(#bluePelletGradient)" transform="rotate(-4 195 168)" stroke="#2563eb" stroke-width="0.5"/>
+    <ellipse cx="215" cy="170" rx="7" ry="10" fill="url(#bluePelletGradient)" transform="rotate(13 215 170)" stroke="#2563eb" stroke-width="0.5"/>
+  </g>
+  
+  <!-- Label -->
+  <rect x="20" y="20" width="120" height="30" rx="5" fill="#ffffff" opacity="0.9" stroke="#dee2e6"/>
+  <text x="80" y="40" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#495057">HDPE Blue</text>
+  
+  <!-- Quality indicator -->
+  <circle cx="260" cy="40" r="15" fill="#ffc107" opacity="0.9"/>
+  <text x="260" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white">!</text>
+</svg>
