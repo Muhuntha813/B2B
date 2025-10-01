@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Machine Base -->
+  <rect x="10" y="160" width="180" height="20" fill="#4A5568" rx="4"/>
+  
+  <!-- Conveyor Belt -->
+  <rect x="15" y="140" width="170" height="20" fill="#2D3748" rx="4"/>
+  <rect x="20" y="145" width="160" height="10" fill="#4A5568" rx="2"/>
+  
+  <!-- Washing Tanks -->
+  <rect x="20" y="100" width="40" height="40" fill="#E6FFFA" stroke="#38B2AC" stroke-width="2" rx="4"/>
+  <rect x="70" y="100" width="40" height="40" fill="#E6FFFA" stroke="#38B2AC" stroke-width="2" rx="4"/>
+  <rect x="120" y="100" width="40" height="40" fill="#E6FFFA" stroke="#38B2AC" stroke-width="2" rx="4"/>
+  
+  <!-- Water in Tanks -->
+  <rect x="25" y="110" width="30" height="25" fill="#4FD1C7" opacity="0.7" rx="2"/>
+  <rect x="75" y="110" width="30" height="25" fill="#4FD1C7" opacity="0.7" rx="2"/>
+  <rect x="125" y="110" width="30" height="25" fill="#4FD1C7" opacity="0.7" rx="2"/>
+  
+  <!-- Agitators -->
+  <circle cx="40" cy="120" r="8" fill="#2D3748"/>
+  <rect x="36" y="116" width="8" height="8" fill="#4A5568" rx="1"/>
+  
+  <circle cx="90" cy="120" r="8" fill="#2D3748"/>
+  <rect x="86" y="116" width="8" height="8" fill="#4A5568" rx="1"/>
+  
+  <circle cx="140" cy="120" r="8" fill="#2D3748"/>
+  <rect x="136" y="116" width="8" height="8" fill="#4A5568" rx="1"/>
+  
+  <!-- Dryer Section -->
+  <rect x="170" y="90" width="20" height="50" fill="#FED7D7" stroke="#E53E3E" stroke-width="2" rx="4"/>
+  <rect x="175" y="95" width="10" height="40" fill="#F56565" opacity="0.6" rx="2"/>
+  
+  <!-- Control Panel -->
+  <rect x="15" y="70" width="40" height="25" fill="#2D3748" rx="4"/>
+  <circle cx="25" cy="80" r="3" fill="#48BB78"/>
+  <circle cx="35" cy="80" r="3" fill="#F56565"/>
+  <circle cx="45" cy="80" r="3" fill="#ECC94B"/>
+  <rect x="20" y="85" width="30" height="6" fill="#4A5568" rx="2"/>
+  
+  <!-- Plastic Flakes Input -->
+  <rect x="15" y="50" width="15" height="20" fill="#E2E8F0" stroke="#4A5568" stroke-width="1" rx="2"/>
+  <circle cx="22" cy="45" r="2" fill="#4A5568"/>
+  <circle cx="18" cy="42" r="1.5" fill="#4A5568"/>
+  <circle cx="26" cy="42" r="1.5" fill="#4A5568"/>
+  
+  <!-- Water Spray Nozzles -->
+  <rect x="35" y="95" width="3" height="5" fill="#4A5568"/>
+  <rect x="85" y="95" width="3" height="5" fill="#4A5568"/>
+  <rect x="135" y="95" width="3" height="5" fill="#4A5568"/>
+  
+  <!-- Water Droplets -->
+  <circle cx="36" cy="105" r="1" fill="#4FD1C7" opacity="0.8"/>
+  <circle cx="38" cy="107" r="1" fill="#4FD1C7" opacity="0.8"/>
+  <circle cx="86" cy="105" r="1" fill="#4FD1C7" opacity="0.8"/>
+  <circle cx="88" cy="107" r="1" fill="#4FD1C7" opacity="0.8"/>
+  <circle cx="136" cy="105" r="1" fill="#4FD1C7" opacity="0.8"/>
+  <circle cx="138" cy="107" r="1" fill="#4FD1C7" opacity="0.8"/>
+  
+  <!-- Heat Lines from Dryer -->
+  <path d="M 175 100 Q 170 95 175 90" stroke="#E53E3E" stroke-width="1" fill="none" opacity="0.6"/>
+  <path d="M 180 100 Q 175 95 180 90" stroke="#E53E3E" stroke-width="1" fill="none" opacity="0.6"/>
+  <path d="M 185 100 Q 180 95 185 90" stroke="#E53E3E" stroke-width="1" fill="none" opacity="0.6"/>
+  
+  <!-- Labels -->
+  <text x="40" y="155" text-anchor="middle" fill="#4A5568" font-family="Arial" font-size="6">WASH</text>
+  <text x="90" y="155" text-anchor="middle" fill="#4A5568" font-family="Arial" font-size="6">RINSE</text>
+  <text x="140" y="155" text-anchor="middle" fill="#4A5568" font-family="Arial" font-size="6">CLEAN</text>
+  <text x="180" y="155" text-anchor="middle" fill="#4A5568" font-family="Arial" font-size="6">DRY</text>
+</svg>

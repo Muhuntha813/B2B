@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Machine Base -->
+  <rect x="20" y="160" width="160" height="20" fill="#4A5568" rx="4"/>
+  
+  <!-- Central Column -->
+  <rect x="90" y="80" width="20" height="80" fill="#2D3748" rx="2"/>
+  
+  <!-- Rotating Arms -->
+  <g transform="rotate(0 100 100)">
+    <rect x="100" y="95" width="60" height="10" fill="#E53E3E" rx="5"/>
+    <circle cx="155" cy="100" r="15" fill="#FED7D7" stroke="#E53E3E" stroke-width="2"/>
+  </g>
+  
+  <g transform="rotate(120 100 100)">
+    <rect x="100" y="95" width="60" height="10" fill="#E53E3E" rx="5"/>
+    <circle cx="155" cy="100" r="15" fill="#FED7D7" stroke="#E53E3E" stroke-width="2"/>
+  </g>
+  
+  <g transform="rotate(240 100 100)">
+    <rect x="100" y="95" width="60" height="10" fill="#E53E3E" rx="5"/>
+    <circle cx="155" cy="100" r="15" fill="#FED7D7" stroke="#E53E3E" stroke-width="2"/>
+  </g>
+  
+  <!-- Central Hub -->
+  <circle cx="100" cy="100" r="12" fill="#2D3748"/>
+  <circle cx="100" cy="100" r="8" fill="#4A5568"/>
+  
+  <!-- Oven Chamber -->
+  <rect x="30" y="40" width="140" height="30" fill="#F7FAFC" stroke="#4A5568" stroke-width="2" rx="8"/>
+  <rect x="35" y="45" width="130" height="20" fill="#FFF5F5" rx="4"/>
+  
+  <!-- Control Panel -->
+  <rect x="150" y="120" width="30" height="40" fill="#2D3748" rx="4"/>
+  <circle cx="160" cy="130" r="3" fill="#48BB78"/>
+  <circle cx="170" cy="130" r="3" fill="#F56565"/>
+  <rect x="155" y="140" width="20" height="8" fill="#4A5568" rx="2"/>
+  <rect x="155" y="150" width="20" height="4" fill="#4A5568" rx="1"/>
+  
+  <!-- Temperature Indicator -->
+  <text x="100" y="58" text-anchor="middle" fill="#4A5568" font-family="Arial" font-size="8">OVEN</text>
+  
+  <!-- Motion Lines -->
+  <path d="M 70 100 Q 85 85 100 100 Q 115 115 130 100" stroke="#E53E3E" stroke-width="1" fill="none" opacity="0.6"/>
+  <path d="M 100 70 Q 115 85 100 100 Q 85 115 100 130" stroke="#E53E3E" stroke-width="1" fill="none" opacity="0.6"/>
+</svg>
