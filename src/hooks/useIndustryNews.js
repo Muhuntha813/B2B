@@ -84,7 +84,7 @@ const useIndustryNews = () => {
             title: 'Revolutionary Biodegradable Polymer Breakthrough Changes Industry Standards',
             description: 'Scientists develop groundbreaking biodegradable plastic that decomposes in 6 months under normal conditions',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date().toLocaleDateString(),
             source: 'Plastics Today'
           },
@@ -93,7 +93,7 @@ const useIndustryNews = () => {
             title: 'India Plastic Manufacturing Sector Shows Unprecedented 15% Growth',
             description: 'Indian plastic industry demonstrates remarkable resilience with record growth driven by automotive demand',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 86400000).toLocaleDateString(),
             source: 'Industry Week'
           },
@@ -102,7 +102,7 @@ const useIndustryNews = () => {
             title: 'Sustainable Packaging Revolution: New EU Regulations Drive Innovation',
             description: 'European regulations push companies toward eco-friendly alternatives and circular economy practices',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 172800000).toLocaleDateString(),
             source: 'Packaging World'
           },
@@ -111,7 +111,7 @@ const useIndustryNews = () => {
             title: 'Mumbai Plastics Expo 2024: Largest Trade Show Showcases Future Technologies',
             description: 'Biggest plastics trade show in India brings together industry leaders to showcase innovations',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 259200000).toLocaleDateString(),
             source: 'Trade Show News'
           }

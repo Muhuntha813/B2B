@@ -1,8 +1,17 @@
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 import SearchBar from '../components/SearchBar'
+import LoadingSpinner from '../components/LoadingSpinner'
 import useIndustryNews from '../hooks/useIndustryNews'
+import { useAuth } from '../contexts/AuthContext'
+import { useAdmin } from '../contexts/AdminContext'
+import WhereYouLeftOff from '../components/WhereYouLeftOff'
+import AdBannerCarousel from '../components/AdBannerCarousel'
+// Removed Sponsors section; SafeImage and WebSocket no longer needed here
 
 const Home = () => {
+  const { currentUser } = useAuth()
+  const { testimonials } = useAdmin()
   const { news: newsItems, loading: newsLoading, error: newsError } = useIndustryNews()
   const services = [
     {
@@ -74,7 +83,8 @@ const Home = () => {
     }
   ]
 
-
+  // WebSocket listeners for real-time updates
+  // Removed sponsors WebSocket update effect
 
   return (
     <div className="fade-in">
@@ -97,6 +107,15 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      {/* Where You Left Off Section - Only for logged-in users */}
+      {currentUser && (
+        <section className="py-8 bg-gray-50">
+          <div className="container">
+            <WhereYouLeftOff />
+          </div>
+        </section>
+      )}
 
       {/* Services Section */}
       <section className="py-16 bg-white">
@@ -127,12 +146,40 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Sponsors Section removed as requested */}
+
+      {/* Mobile Ad Banner Section */}
+      <section className="py-8 bg-white xl:hidden">
+        <div className="container">
+          <div className="text-center">
+            <h3 className="text-lg font-semibold text-gray-800 mb-4">Sponsored</h3>
+            <div className="flex justify-center">
+              <AdBannerCarousel 
+                width={300}
+                className="max-w-full"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Community Forum Section */}
       <section className="py-16 bg-gray-50">
         <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-3 gap-8">
+            {/* Ad Banner - Left Side (Desktop) */}
+            <div className="hidden xl:block xl:col-span-1 order-1">
+              <div className="sticky top-24">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Sponsored</h3>
+                <AdBannerCarousel 
+                  width={280}
+                  className="w-full"
+                />
+              </div>
+            </div>
+
             {/* Forum Posts */}
-            <div className="lg:col-span-2">
+            <div className="xl:col-span-2 lg:col-span-2 order-2">
               <div className="flex justify-between items-center mb-8">
                 <h2 className="text-3xl font-bold text-gray-800">Community Forum</h2>
                 <Link to="/forum" className="text-primary hover:text-blue-600 font-medium">
@@ -167,22 +214,12 @@ const Home = () => {
             </div>
 
             {/* Industry News */}
-            <div>
+            <div className="xl:col-span-1 lg:col-span-1 order-3">
               <h3 className="text-2xl font-bold text-gray-800 mb-6">Industry News</h3>
               
               {newsLoading ? (
-                <div className="space-y-4">
-                  {[1, 2, 3, 4].map((i) => (
-                    <div key={i} className="card p-4 animate-pulse">
-                      <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 bg-gray-300 rounded mt-1"></div>
-                        <div className="flex-1">
-                          <div className="h-4 bg-gray-300 rounded mb-2"></div>
-                          <div className="h-3 bg-gray-200 rounded w-3/4"></div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <div className="flex justify-center py-8">
+                  <LoadingSpinner variant="pulse" text="Loading industry news..." />
                 </div>
               ) : newsError ? (
                 <div className="card p-4 text-center text-gray-600">
@@ -229,19 +266,39 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Sponsors Section */}
+      {/* Testimonials Section */}
       <section className="py-16 bg-white">
         <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">Sponsors</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map((sponsor) => (
-              <div key={sponsor} className="card p-8 text-center hover:shadow-lg transition-shadow duration-300">
-                <div className="text-4xl text-gray-400 mb-2">
-                  <svg className="w-12 h-12 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
-                  </svg>
+          <h2 className="text-3xl font-bold text-center mb-12 text-gray-800">What Our Clients Say</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {testimonials.map((testimonial) => (
+              <div key={testimonial.id} className="card p-6 text-center hover:shadow-lg transition-shadow duration-300">
+                <div className="mb-4">
+                  <img 
+                    src={testimonial.image} 
+                    alt={testimonial.name}
+                    className="w-20 h-20 rounded-full mx-auto object-cover border-4 border-primary/20"
+                  />
                 </div>
-                <span className="text-gray-600 font-medium">SPONSOR</span>
+                <div className="mb-4">
+                  <div className="flex justify-center mb-2">
+                    {[...Array(5)].map((_, i) => (
+                      <svg 
+                        key={i} 
+                        className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`} 
+                        fill="currentColor" 
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-gray-600 text-sm mb-3 italic">"{testimonial.testimonial}"</p>
+                </div>
+                <div>
+                  <h4 className="font-semibold text-gray-800">{testimonial.name}</h4>
+                  <p className="text-sm text-gray-500">{testimonial.company}</p>
+                </div>
               </div>
             ))}
           </div>

@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import LoadingSpinner from '../components/LoadingSpinner'
+import AdBannerCarousel from '../components/AdBannerCarousel'
+import SafeImage from '../components/SafeImage'
+import { getIndustryNews } from '../services/news'
 
 const News = () => {
   const [news, setNews] = useState([])
@@ -16,44 +19,37 @@ const News = () => {
         setLoading(true)
         setError(null)
         
-        // Using NewsAPI with plastics industry keywords
-        const apiKey = 'demo' // In production, use environment variable
-        const keywords = 'plastics OR polymer OR manufacturing OR "injection molding" OR "plastic industry" OR "sustainable packaging" OR "recycling" OR "biodegradable"'
-        const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(keywords)}&language=en&sortBy=publishedAt&pageSize=50&apiKey=${apiKey}`
+        // Using GNews API service
+        const result = await getIndustryNews(50)
         
-        const response = await fetch(url)
-        
-        if (!response.ok) {
-          throw new Error('API request failed')
+        if (result.error) {
+          throw new Error(result.error)
         }
         
-        const data = await response.json()
-        
-        if (data.status === 'ok' && data.articles) {
-          const formattedNews = data.articles
-            .filter(article => article.title && article.description && article.urlToImage)
-            .map(article => ({
-              id: article.url,
-              title: article.title,
-              description: article.description,
-              content: article.content || article.description,
-              url: article.url,
-              urlToImage: article.urlToImage,
-              publishedAt: new Date(article.publishedAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              }),
-              source: article.source.name,
-              author: article.author
-            }))
+        if (result.data && result.data.length > 0) {
+          // Format the data for display
+          const formattedNews = result.data.map(article => ({
+            id: article.id,
+            title: article.title,
+            description: article.description,
+            content: article.description, // GNews doesn't provide full content
+            url: article.url,
+            urlToImage: article.image,
+            publishedAt: new Date(article.publishedAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            }),
+            source: article.source,
+            author: null // GNews doesn't provide author info
+          }))
           
           setNews(formattedNews)
         } else {
-          throw new Error('Invalid API response')
+          throw new Error('No articles found')
         }
       } catch (err) {
-        console.warn('Failed to fetch news, using fallback data:', err.message)
+        console.warn('Failed to fetch news from GNews API, using fallback data:', err.message)
         setError(err.message)
         
         // Enhanced fallback to curated industry news with images
@@ -64,7 +60,7 @@ const News = () => {
             description: 'Scientists at leading research institutions have developed a groundbreaking biodegradable plastic that completely decomposes within 6 months under normal environmental conditions.',
             content: 'This revolutionary polymer breakthrough represents a significant step forward in sustainable packaging solutions. The new material maintains the durability and flexibility of traditional plastics while offering complete biodegradability.',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
             source: 'Plastics Today',
             author: 'Dr. Sarah Chen'
@@ -75,7 +71,7 @@ const News = () => {
             description: 'The Indian plastic manufacturing industry demonstrates remarkable resilience and growth, driven by increased automotive demand and infrastructure development projects.',
             content: 'Industry analysts report that the growth is primarily attributed to government initiatives promoting Make in India and increased demand from automotive and construction sectors.',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 86400000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
             source: 'Industry Week',
             author: 'Rajesh Kumar'
@@ -86,7 +82,7 @@ const News = () => {
             description: 'European Union introduces comprehensive regulations pushing companies toward eco-friendly plastic alternatives and circular economy practices.',
             content: 'The new regulations mandate significant reductions in single-use plastics and promote innovative recycling technologies across member states.',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 172800000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
             source: 'Packaging World',
             author: 'Maria Rodriguez'
@@ -97,7 +93,7 @@ const News = () => {
             description: 'The biggest plastics trade show in India brings together industry leaders to showcase cutting-edge innovations, sustainable solutions, and emerging technologies.',
             content: 'Over 500 exhibitors from 40 countries participated in this year\'s expo, highlighting advances in injection molding, 3D printing, and recycling technologies.',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 259200000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
             source: 'Trade Show News',
             author: 'Amit Sharma'
@@ -108,7 +104,7 @@ const News = () => {
             description: 'New precision molding technologies and AI-driven process optimization are revolutionizing manufacturing efficiency in the plastics industry.',
             content: 'Companies implementing these advanced techniques report significant cost savings while maintaining superior product quality and reducing material waste.',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 345600000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
             source: 'Manufacturing Today',
             author: 'Jennifer Liu'
@@ -119,7 +115,7 @@ const News = () => {
             description: 'Breakthrough recycling technologies enable the processing of previously non-recyclable plastics, moving the industry closer to a circular economy.',
             content: 'These innovations include chemical recycling processes that can handle mixed plastic waste and convert it back to virgin-quality materials.',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 432000000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
             source: 'Environmental Science Today',
             author: 'Dr. Michael Green'
@@ -130,7 +126,7 @@ const News = () => {
             description: 'Internet of Things (IoT) sensors and smart monitoring systems are revolutionizing quality control and predictive maintenance in plastic manufacturing.',
             content: 'Real-time data analytics and machine learning algorithms help manufacturers optimize production parameters and reduce downtime significantly.',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 518400000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
             source: 'Smart Manufacturing',
             author: 'David Park'
@@ -141,7 +137,7 @@ const News = () => {
             description: 'Market research indicates explosive growth in the bioplastics sector, driven by consumer demand for sustainable alternatives and regulatory support.',
             content: 'The growth is fueled by innovations in plant-based polymers and increased adoption across packaging, automotive, and consumer goods industries.',
             url: '#',
-            urlToImage: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=400&fit=crop',
+            urlToImage: '/placeholder-news.svg',
             publishedAt: new Date(Date.now() - 604800000).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
             source: 'Market Research Today',
             author: 'Lisa Thompson'
@@ -178,8 +174,7 @@ const News = () => {
       <div className="min-h-screen bg-background-primary">
         <div className="container py-20">
           <div className="text-center">
-            <LoadingSpinner size="large" />
-            <p className="mt-4 text-text-secondary">Loading latest industry news...</p>
+            <LoadingSpinner size="lg" variant="flip" text="Loading latest industry news..." />
           </div>
         </div>
       </div>
@@ -244,33 +239,54 @@ const News = () => {
         </div>
       </section>
 
-      {/* News Grid */}
+      {/* Main Content with Sidebar */}
       <section className="py-12">
         <div className="container">
-          {error && (
-            <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <div className="flex items-center">
-                <svg className="w-5 h-5 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                </svg>
-                <p className="text-yellow-800">
-                  Unable to fetch live news. Showing curated industry updates.
-                </p>
+          {/* Desktop Layout: Two-column grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr] gap-8">
+            {/* Left Sidebar - Ad Banner (Desktop) */}
+            <div className="hidden lg:block">
+              <div className="sticky top-8">
+                <AdBannerCarousel 
+                   images={[
+                     '/placeholder-ad.svg',
+                     '/placeholder-ad.svg',
+                     '/placeholder-ad.svg',
+                     '/placeholder-ad.svg'
+                   ]}
+                   intervalMs={4000}
+                   width={300}
+                   className="mb-6"
+                 />
               </div>
             </div>
-          )}
 
-          {currentNews.length === 0 ? (
-            <div className="text-center py-12">
-              <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-              </svg>
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">No articles found</h3>
-              <p className="text-gray-500">Try adjusting your search terms</p>
-            </div>
-          ) : (
-            <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 stagger-animation">
+            {/* Main Content Area */}
+            <div className="max-w-6xl">
+              {error && (
+                <div className="mb-8 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <div className="flex items-center">
+                    <svg className="w-5 h-5 text-yellow-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                    <p className="text-yellow-800">
+                      Unable to fetch live news from GNews API. Showing curated industry updates.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {currentNews.length === 0 ? (
+                <div className="text-center py-12">
+                  <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                  </svg>
+                  <h3 className="text-xl font-semibold text-gray-600 mb-2">No articles found</h3>
+                  <p className="text-gray-500">Try adjusting your search terms</p>
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 stagger-animation">
                 {currentNews.map((article, index) => (
                   <article 
                     key={article.id} 
@@ -278,15 +294,13 @@ const News = () => {
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={article.urlToImage}
-                        alt={article.title}
-                        className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                        onError={(e) => {
-                          e.target.src = 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&h=400&fit=crop'
-                        }}
-                      />
-                      <div className="absolute top-4 left-4">
+                       <SafeImage
+                         src={article.urlToImage}
+                         alt={article.title}
+                         fallbackSrc="/placeholder-news.svg"
+                         className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                       />
+                       <div className="absolute top-4 left-4">
                         <span className="bg-primary-500 text-white px-3 py-1 rounded-full text-sm font-medium">
                           {article.source}
                         </span>
@@ -331,49 +345,67 @@ const News = () => {
                 ))}
               </div>
 
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="flex justify-center items-center space-x-2 mt-12">
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  
-                  {[...Array(totalPages)].map((_, index) => {
-                    const page = index + 1
-                    return (
+                  {/* Pagination */}
+                  {totalPages > 1 && (
+                    <div className="flex justify-center items-center space-x-2 mt-12">
                       <button
-                        key={page}
-                        onClick={() => handlePageChange(page)}
-                        className={`px-4 py-2 border rounded-lg transition-colors duration-200 ${
-                          currentPage === page
-                            ? 'bg-primary-500 text-white border-primary-500'
-                            : 'border-gray-300 hover:bg-gray-50'
-                        }`}
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors duration-200"
                       >
-                        {page}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
                       </button>
-                    )
-                  })}
-                  
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors duration-200"
-                  >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
+                      
+                      {[...Array(totalPages)].map((_, index) => {
+                        const page = index + 1
+                        return (
+                          <button
+                            key={page}
+                            onClick={() => handlePageChange(page)}
+                            className={`px-4 py-2 border rounded-lg transition-colors duration-200 ${
+                              currentPage === page
+                                ? 'bg-primary-500 text-white border-primary-500'
+                                : 'border-gray-300 hover:bg-gray-50'
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        )
+                      })}
+                      
+                      <button
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="px-4 py-2 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-colors duration-200"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    </div>
+                  )}
+                </>
               )}
-            </>
-          )}
+            </div>
+          </div>
+
+          {/* Mobile/Tablet Ad Banner */}
+          <div className="lg:hidden mt-12">
+            <AdBannerCarousel 
+               images={[
+                 '/placeholder-banner.svg',
+                 '/placeholder-banner.svg',
+                 '/placeholder-banner.svg',
+                 '/placeholder-banner.svg'
+               ]}
+               intervalMs={4000}
+               width="100%"
+               height={200}
+               className="rounded-lg"
+             />
+          </div>
         </div>
       </section>
     </div>

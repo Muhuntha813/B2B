@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 import SearchBar from '../components/SearchBar'
+import LoadingSpinner from '../components/LoadingSpinner'
 import { useJobs } from '../context/JobsContext'
+import { useUserActivity } from '../contexts/UserActivityContext'
 
 const Jobs = () => {
+  const { trackPageVisit } = useUserActivity()
   const [searchParams] = useSearchParams()
   const { jobs, loading, error } = useJobs()
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
@@ -23,6 +26,11 @@ const Jobs = () => {
     status: [...new Set(jobs.map(job => job.status))],
     locations: [...new Set(jobs.map(job => job.location))]
   }
+
+  // Track page visit
+  useEffect(() => {
+    trackPageVisit('/jobs', { category: 'jobs' })
+  }, [trackPageVisit])
 
   useEffect(() => {
     let filtered = jobs
@@ -115,10 +123,7 @@ const Jobs = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading jobs...</p>
-        </div>
+        <LoadingSpinner variant="rotate" text="Loading jobs..." />
       </div>
     )
   }

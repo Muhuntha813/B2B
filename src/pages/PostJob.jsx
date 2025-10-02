@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useJobs } from '../context/JobsContext'
+import { useAuth } from '../contexts/AuthContext'
 
 const PostJob = () => {
   const navigate = useNavigate()
+  const { currentUser } = useAuth()
   const { addJob, loading, error, clearError } = useJobs()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
@@ -115,7 +117,7 @@ const PostJob = () => {
         unit: 'pieces', // Default unit
         budget: parseInt(formData.budget),
         location: formData.location,
-        client: 'Your Company', // This would come from user profile
+        client: currentUser?.displayName || currentUser?.email || 'Anonymous User',
         deadline: formData.endDate,
         description: formData.description,
         requirements: {
@@ -128,7 +130,7 @@ const PostJob = () => {
         estimatedDuration: calculateEstimatedDuration(formData.startDate, formData.endDate)
       }
       
-      const result = await addJob(jobData)
+      const result = await addJob(jobData, currentUser)
       
       if (result.success) {
         // Show success message

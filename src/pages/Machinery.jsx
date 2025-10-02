@@ -5,8 +5,10 @@ import FilterSidebar from '../components/FilterSidebar'
 import ProductCard from '../components/ProductCard'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { machinesData } from '../data/machines'
+import { useUserActivity } from '../contexts/UserActivityContext'
 
 const Machinery = () => {
+  const { trackPageVisit } = useUserActivity()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '')
@@ -36,6 +38,11 @@ const Machinery = () => {
     ],
     locations: [...new Set(machinesData.map(machine => machine.location))]
   }
+
+  // Track page visit
+  useEffect(() => {
+    trackPageVisit('/machinery', { category: 'machinery' })
+  }, [trackPageVisit])
 
   useEffect(() => {
     let filtered = machinesData

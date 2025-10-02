@@ -5,8 +5,10 @@ import ProductCard from '../components/ProductCard'
 import FilterSidebar from '../components/FilterSidebar'
 import LoadingSpinner from '../components/LoadingSpinner'
 import { materialsData } from '../data/materials'
+import { useUserActivity } from '../contexts/UserActivityContext'
 
 const Materials = () => {
+  const { trackPageVisit } = useUserActivity()
   const [filteredProducts, setFilteredProducts] = useState(materialsData)
   const [searchTerm, setSearchTerm] = useState('')
   const [filters, setFilters] = useState({
@@ -37,6 +39,11 @@ const Materials = () => {
       { label: 'Above ₹200', value: '200+' }
     ]
   }
+
+  // Track page visit
+  useEffect(() => {
+    trackPageVisit('/materials', { category: 'materials' })
+  }, [trackPageVisit])
 
   useEffect(() => {
     setIsLoading(true)
@@ -192,9 +199,11 @@ const Materials = () => {
               </div>
             ) : currentProducts.length > 0 ? (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 stagger-animation">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8 auto-rows-fr">
                   {currentProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <div key={product.id} className="flex">
+                      <ProductCard product={product} />
+                    </div>
                   ))}
                 </div>
 

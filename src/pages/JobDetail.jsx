@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useJobs } from '../context/JobsContext'
+import { useAuth } from '../contexts/AuthContext'
+import ChatWindow from '../components/ChatWindow'
 
 const JobDetail = () => {
   const { id } = useParams()
   const { getJobById } = useJobs()
+  const { currentUser } = useAuth()
   const [activeTab, setActiveTab] = useState('details')
-
-  const job = getJobById(id)
+  const [showChat, setShowChat] = useState(false)
+  
+  const job = getJobById(parseInt(id))
 
   if (!job) {
     return (
@@ -226,21 +230,21 @@ const JobDetail = () => {
           {/* Sidebar */}
           <div className="lg:col-span-1">
             {/* Chat with Owner */}
-            {job.status === 'Open' && (
+            {job.status === 'Open' && currentUser && currentUser.uid !== job.owner_uid && (
               <div className="bg-white rounded-lg shadow-sm p-6 mb-6">
                 <h3 className="text-lg font-semibold mb-4">Contact Client</h3>
                 <p className="text-gray-600 mb-4">
                   Interested in this project? Start a conversation with the client to discuss requirements, timeline, and pricing.
                 </p>
-                <Link 
-                  to={`/chat?type=job&jobId=${job.id}&client=${encodeURIComponent(job.client)}`}
+                <button 
+                  onClick={() => setShowChat(true)}
                   className="w-full btn btn-primary inline-flex items-center justify-center space-x-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                   </svg>
                   <span>Chat with owner</span>
-                </Link>
+                </button>
               </div>
             )}
 
@@ -339,6 +343,16 @@ const JobDetail = () => {
           </div>
         </div>
       </div>
+
+      {/* Chat Window */}
+      {showChat && (
+        <ChatWindow
+          jobId={job.id}
+          jobOwnerUid={job.firebase_uid || 'default-owner-uid'} // You may need to add this field to job data
+          jobTitle={job.title}
+          onClose={() => setShowChat(false)}
+        />
+      )}
     </div>
   )
 }

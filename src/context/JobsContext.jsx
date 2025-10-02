@@ -1,10 +1,19 @@
 import { createContext, useContext, useReducer, useEffect } from 'react'
 import { jobsData } from '../data/jobs'
+import jobService from '../services/jobService'
+import { useAuth } from '../contexts/AuthContext'
 
 const JobsContext = createContext()
 
 const jobsReducer = (state, action) => {
   switch (action.type) {
+    case 'LOAD_JOBS_START':
+      return {
+        ...state,
+        loading: true,
+        error: null
+      }
+    
     case 'LOAD_JOBS':
       return {
         ...state,
@@ -74,53 +83,53 @@ export const JobsProvider = ({ children }) => {
     error: null
   })
 
-  // Load jobs from localStorage or use default data
-  useEffect(() => {
-    const savedJobs = localStorage.getItem('jobs')
-    if (savedJobs) {
-      try {
-        const parsedJobs = JSON.parse(savedJobs)
-        dispatch({ type: 'LOAD_JOBS', payload: parsedJobs })
-      } catch (error) {
-        console.error('Error parsing saved jobs:', error)
-        dispatch({ type: 'LOAD_JOBS', payload: jobsData })
-      }
-    } else {
-      dispatch({ type: 'LOAD_JOBS', payload: jobsData })
-    }
-  }, [])
-
-  // Save jobs to localStorage whenever jobs change
-  useEffect(() => {
-    if (state.jobs.length > 0) {
-      localStorage.setItem('jobs', JSON.stringify(state.jobs))
-    }
-  }, [state.jobs])
-
-  const addJob = async (jobData) => {
-    dispatch({ type: 'ADD_JOB_START' })
-    
+  // Load jobs from database
+  const loadJobs = async () => {
+    dispatch({ type: 'LOAD_JOBS_START' });
     try {
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      // Generate new job with unique ID
-      const newJob = {
-        ...jobData,
-        id: Date.now(), // Simple ID generation
-        postedDate: new Date().toISOString().split('T')[0],
-        status: 'Open',
-        bidsReceived: 0,
-        rating: 0
-      }
-      
-      dispatch({ type: 'ADD_JOB_SUCCESS', payload: newJob })
-      return { success: true, job: newJob }
+      const jobs = await jobService.getAllJobs();
+      dispatch({ type: 'LOAD_JOBS', payload: jobs });
     } catch (error) {
-      dispatch({ type: 'ADD_JOB_ERROR', payload: error.message })
-      return { success: false, error: error.message }
+      console.error('Failed to load jobs:', error);
+      // Fallback to empty array if API fails
+      dispatch({ type: 'LOAD_JOBS', payload: [] });
     }
   }
+
+  useEffect(() => {
+    loadJobs()
+  }, [])
+
+  const addJob = async (jobData, user) => {
+    if (!user) {
+      dispatch({ type: 'ADD_JOB_ERROR', payload: 'User must be logged in to post jobs' });
+      return { success: false, error: 'User must be logged in to post jobs' };
+    }
+
+    try {
+      dispatch({ type: 'ADD_JOB_START' });
+      
+      const result = await jobService.createJob(jobData, {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || user.email
+      });
+      
+      if (result.success) {
+        // Reload jobs to get the updated list
+        loadJobs();
+        dispatch({ type: 'ADD_JOB_SUCCESS' });
+        return { success: true, jobId: result.jobId };
+      } else {
+        dispatch({ type: 'ADD_JOB_ERROR', payload: result.error });
+        return { success: false, error: result.error };
+      }
+    } catch (error) {
+      console.error('Error adding job:', error);
+      dispatch({ type: 'ADD_JOB_ERROR', payload: error.message });
+      return { success: false, error: error.message };
+    }
+  };
 
   const updateJob = (jobId, updates) => {
     const updatedJob = state.jobs.find(job => job.id === jobId)

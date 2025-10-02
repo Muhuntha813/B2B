@@ -286,7 +286,7 @@ export const analyticsAPI = {
   trackPageView: async (page, userId = null) => {
     await delay(100)
     // In a real app, this would send data to analytics service
-    console.log('Page view tracked:', { page, userId, timestamp: new Date().toISOString() })
+    // Page view tracked silently
     return mockResponse(null, true, 'Page view tracked')
   },
 
@@ -294,7 +294,7 @@ export const analyticsAPI = {
   trackAction: async (action, data = {}, userId = null) => {
     await delay(100)
     // In a real app, this would send data to analytics service
-    console.log('Action tracked:', { action, data, userId, timestamp: new Date().toISOString() })
+    // Action tracked silently
     return mockResponse(null, true, 'Action tracked')
   }
 }

@@ -136,7 +136,7 @@ const Contact = () => {
                   Get in Touch
                 </h2>
                 
-                <div className="space-y-6 mb-8">
+                <div className="space-y-8 mb-10">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <svg className="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20">
@@ -149,7 +149,7 @@ const Contact = () => {
                         Email
                       </h3>
                       <p className="text-text-secondary">
-                        <strong>[TBD]</strong> contact@b2bplastics.com
+                        support@b2bplastics.com
                       </p>
                     </div>
                   </div>
@@ -165,7 +165,8 @@ const Contact = () => {
                         Phone
                       </h3>
                       <p className="text-text-secondary">
-                        <strong>[TBD]</strong> +1 (555) 123-4567
+                        +91-9884305236<br />
+                        044-48552626
                       </p>
                     </div>
                   </div>
@@ -181,8 +182,10 @@ const Contact = () => {
                         Address
                       </h3>
                       <p className="text-text-secondary">
-                        <strong>[TBD]</strong> 123 Business District<br />
-                        Industrial City, IC 12345
+                        CIPETIAN PLASTEMART PVT LTD.<br />
+                        No.13/10, 29th street extn.<br />
+                        Tillai Ganga nagar, Nanganallur<br />
+                        Chennai - 600 061
                       </p>
                     </div>
                   </div>
@@ -198,26 +201,43 @@ const Contact = () => {
                         Business Hours
                       </h3>
                       <p className="text-text-secondary">
-                        <strong>[TBD]</strong> Monday - Friday: 9:00 AM - 6:00 PM<br />
-                        Saturday: 10:00 AM - 4:00 PM
+                        Monday through Saturday: 9 a.m. to 6 p.m.<br />
+                        <span className="text-sm">If you get in touch with us outside of these times, we'll reply to you in the next business hour.</span>
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-success-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <svg className="w-6 h-6 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-text-primary mb-1">
+                        WhatsApp
+                      </h3>
+                      <p className="text-text-secondary">
+                        Sign up using the company's WhatsApp account at<br />
+                        <strong>09884305236</strong>
                       </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-background-secondary rounded-xl p-6">
-                  <h3 className="text-lg font-semibold text-text-primary mb-3">
+                <div className="bg-background-secondary rounded-xl p-8">
+                  <h3 className="text-lg font-semibold text-text-primary mb-4">
                     Quick Response
                   </h3>
-                  <p className="text-text-secondary text-sm">
-                    <strong>[TBD]</strong> We typically respond to all inquiries within 24 hours during business days. For urgent matters, please call us directly.
+                  <p className="text-text-secondary">
+                    We typically respond to all inquiries within the next business hour during our working hours (Monday through Saturday: 9 a.m. to 6 p.m.). For urgent matters, please call us directly at +91-9884305236 or contact us via WhatsApp.
                   </p>
                 </div>
               </div>
 
               {/* Contact Form */}
               <div>
-                <div className="card">
+                <div className="card p-8">
                   <h2 className="text-2xl font-bold text-text-primary mb-6">
                     Send us a Message
                   </h2>

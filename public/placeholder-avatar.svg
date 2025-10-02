@@ -1,0 +1,13 @@
+<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="75" cy="75" r="75" fill="#E5E7EB"/>
+  
+  <!-- Person silhouette -->
+  <g fill="#9CA3AF">
+    <!-- Head -->
+    <circle cx="75" cy="55" r="25"/>
+    
+    <!-- Body -->
+    <path d="M75 85 C55 85, 40 100, 40 120 L40 150 L110 150 L110 120 C110 100, 95 85, 75 85 Z"/>
+  </g>
+</svg>

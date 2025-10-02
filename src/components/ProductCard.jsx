@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { useCart } from '../context/CartContext'
+import LoadingSpinner from './LoadingSpinner'
 
 const ProductCard = ({ product, isLoading = false }) => {
   const { addToCart } = useCart()
@@ -14,30 +15,17 @@ const ProductCard = ({ product, isLoading = false }) => {
 
   if (isLoading) {
     return (
-      <div className="card animate-pulse">
-        <div className="bg-gray-200 h-48 rounded-t-lg loading-shimmer"></div>
-        <div className="p-4 space-y-3">
-          <div className="h-4 bg-gray-200 rounded loading-shimmer"></div>
-          <div className="h-3 bg-gray-200 rounded w-3/4 loading-shimmer"></div>
-          <div className="space-y-2">
-            <div className="h-3 bg-gray-200 rounded loading-shimmer"></div>
-            <div className="h-3 bg-gray-200 rounded loading-shimmer"></div>
-            <div className="h-3 bg-gray-200 rounded loading-shimmer"></div>
-          </div>
-          <div className="flex justify-between items-center">
-            <div className="h-6 bg-gray-200 rounded w-20 loading-shimmer"></div>
-            <div className="h-8 bg-gray-200 rounded w-24 loading-shimmer"></div>
-          </div>
-        </div>
+      <div className="card h-full flex flex-col items-center justify-center p-8">
+        <LoadingSpinner variant="bounce" size="sm" text="Loading product..." />
       </div>
     )
   }
 
   return (
-    <Link to={`/product/${product.id}`} className="card group smooth-hover scale-in transition-all duration-300 h-full flex flex-col">
+    <Link to={`/product/${product.id}`} className="card group smooth-hover scale-in transition-all duration-300 h-full flex flex-col w-full">
       <div className="relative overflow-hidden rounded-t-lg">
         {!imageLoaded && (
-          <div className="absolute inset-0 bg-gray-200 loading-shimmer"></div>
+          <div className="absolute inset-0 bg-gray-200"></div>
         )}
         <img
           src={product.image}
@@ -49,7 +37,7 @@ const ProductCard = ({ product, isLoading = false }) => {
         />
         {product.inStock === false && (
           <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center backdrop-blur-sm">
-            <span className="text-white font-semibold animate-pulse">Out of Stock</span>
+            <span className="text-white font-semibold">Out of Stock</span>
           </div>
         )}
       </div>
