@@ -220,6 +220,7 @@ This React application was converted from existing HTML/CSS templates. The origi
 ## CI/CD
 - GitHub Actions workflow runs backend tests and builds frontend.
 - See `.github/workflows/ci.yml` for steps and caching.
+
 ---
 
 **Built with ❤️ for the plastics industry**
