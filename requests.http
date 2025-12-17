@@ -1,0 +1,52 @@
+### Base
+@api = http://localhost:3001/api
+
+### Auth
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@example.com",
+  "password": "admin123"
+}
+
+### Health
+GET {{api}}/health
+
+### Ready
+GET {{api}}/readyz
+
+### Products
+GET {{api}}/products
+
+### Admin Stats (use token)
+GET {{api}}/admin/stats
+Authorization: Bearer {{token}}
+
+### Forum list
+GET {{api}}/forum/posts?page=1&pageSize=10&search=
+
+### Create forum post (user token)
+POST {{api}}/forum/posts
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "user_uid": "demo-user-uid",
+  "title": "Hello",
+  "content": "First post"
+}
+
+### Messages
+GET {{api}}/messages/thread?user_uid=demo-user-uid&peer_uid=seller-user-uid
+Authorization: Bearer {{token}}
+
+POST {{api}}/messages
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "sender_uid": "demo-user-uid",
+  "receiver_uid": "seller-user-uid",
+  "body": "Hi seller"
+}

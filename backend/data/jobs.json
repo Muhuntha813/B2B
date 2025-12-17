@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "firebase_uid": "uid-demo-001",
+    "owner_uid": "uid-demo-001",
+    "title": "Demo file-store job",
+    "category": "Injection Molding",
+    "material": "HDPE",
+    "quantity": 100,
+    "budget": 50000,
+    "location": "Bangalore",
+    "client": "Demo Industries",
+    "deadline": "2025-12-01",
+    "description": "Demo job posted via API",
+    "requirements": "{\"color\":\"natural\",\"materialType\":\"HDPE\"}",
+    "specifications": "[{\"material\":\"HDPE\",\"name\":\"Part\"}]",
+    "estimatedDuration": "1-2 weeks",
+    "posted_date": "2025-11-05",
+    "status": "Open",
+    "bidsReceived": 0,
+    "rating": 0,
+    "unit": "kg"
+  }
+]

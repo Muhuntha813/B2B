@@ -198,6 +198,28 @@ For support and questions:
 
 This React application was converted from existing HTML/CSS templates. The original styling and design patterns have been preserved and adapted for React components, ensuring consistency with the original design while adding modern React functionality and state management.
 
+## Backend & API
+- Backend server: Express with Socket.IO and PostgreSQL/SQLite-compatible adapter
+- API base: `http://localhost:3001/api` by default
+- Health: `GET /api/health` → `{ status: 'OK' }`
+- Readiness: `GET /api/readyz` → `{ status: 'READY' }` when DB is connected
+
+## Local Development
+- Backend: `cd backend && npm install && npm run dev`
+- Frontend: `cd frontend && npm install && npm run dev`
+- Configure `VITE_API_BASE_URL` in `frontend/.env` if backend runs elsewhere.
+
+## Migrations & Seeding
+- Migrations (runtime init via readiness): `npm run migrate --prefix backend`
+- Seed demo data (backend must be running): `npm run seed --prefix backend`
+
+## Testing
+- Backend tests: `npm test --prefix backend`
+- Includes health and readiness endpoint tests.
+
+## CI/CD
+- GitHub Actions workflow runs backend tests and builds frontend.
+- See `.github/workflows/ci.yml` for steps and caching.
 ---
 
 **Built with ❤️ for the plastics industry**

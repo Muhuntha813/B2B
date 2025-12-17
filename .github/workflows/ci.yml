@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install root
+        run: npm install
+
+      - name: Install backend
+        run: npm install
+        working-directory: backend
+
+      - name: Install frontend
+        run: npm install
+        working-directory: frontend
+
+      - name: Backend tests
+        run: |
+          echo "JWT_SECRET=dev_jwt_secret" > .env
+          npm run seed || true
+          npm test
+        working-directory: backend
+
+      - name: Frontend build
+        run: npm run build
+        working-directory: frontend
+
+      - name: API smoke
+        run: |
+          node -e "const f=require('node-fetch');(async()=>{const l=await f('http://localhost:3001/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:'admin@example.com',password:'admin123'})});const j=await l.json();if(!j.token) throw new Error('Login failed');const h=await f('http://localhost:3001/api/health');console.log('health',h.status);const r=await f('http://localhost:3001/api/readyz');console.log('readyz',r.status);const p=await f('http://localhost:3001/api/products');console.log('products',p.status);const s=await f('http://localhost:3001/api/admin/stats',{headers:{Authorization:`Bearer ${j.token}`}});console.log('admin stats',s.status);})()"
